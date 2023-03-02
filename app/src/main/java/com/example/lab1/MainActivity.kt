@@ -9,7 +9,6 @@ import com.example.lab1.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private var isTextVisible: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,16 +17,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun btnOnClick(view: View?) {
-        if (isTextVisible) {
-            binding.tvHelloWorld.visibility = View.INVISIBLE
-            binding.btnFlip.text = "Show"
-        }
-        else {
-            binding.tvHelloWorld.visibility = View.VISIBLE
-            binding.btnFlip.text = "Hide"
-        }
+        val text = binding.editText.text
 
-        isTextVisible = !isTextVisible
+        binding.textView.visibility = View.VISIBLE
+        binding.textView.text = text
+        binding.editText.text = null
     }
 
     fun labTwoOnClick(view: View?) {

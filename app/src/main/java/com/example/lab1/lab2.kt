@@ -44,6 +44,13 @@ class lab2 : AppCompatActivity() {
         return if (position == 0) "$sign$num" else "$sign $num"
     }
 
+    fun nullCheck(num: Double): Double {
+        if (num == -0.0) {
+            return 0.0
+        }
+        return num
+    }
+
     fun calculate(view: View?) {
         val _a = binding.etA.text.toString()
         val _b = binding.etB.text.toString()
@@ -58,7 +65,7 @@ class lab2 : AppCompatActivity() {
 
         // решение
         if (_b == "" && _c == "") {
-            binding.tvResult.text = "${numAsText(_a.toDouble(), 0)}x^2 = 0\nx = 0"
+            binding.tvResult.text = "${numAsText(_a.toDouble(), 0)}x^2 = 0\nx1 = x2 = 0"
             return
         }
         if (_b == "") {
@@ -70,15 +77,15 @@ class lab2 : AppCompatActivity() {
             else {
                 val sqrt = sqrt(((_c.toInt() * -1) / _a.toInt()).toDouble())
                 binding.tvResult.text = "${numAsText(_a.toDouble(), 0)}x^2 ${numAsText(_c.toDouble(), 2)} = 0\n" +
-                        "x1 = -${round(sqrt)}\n" +
-                        "x2 = ${round(sqrt)}"
+                        "x1 = -${nullCheck(round(sqrt))}\n" +
+                        "x2 = ${nullCheck(round(sqrt))}"
                 return
             }
         }
         if (_c == "") {
             binding.tvResult.text = "${numAsText(_a.toDouble(), 0)}x^2 ${numAsText(_b.toDouble(), 1)}x = 0\n" +
                     "x1 = 0\n" +
-                    "x2 = ${_b.toDouble() * -1 / _a.toDouble()}"
+                    "x2 = ${nullCheck(_b.toDouble() * -1 / _a.toDouble())}"
             return
         }
 
@@ -93,12 +100,12 @@ class lab2 : AppCompatActivity() {
                     "Дискриминант меньше 0, корней нет."
         }
         else if (d == 0.0) {
-            binding.tvResult.text = "${expr}\nx = ${-1 * b / (2 * a)}"
+            binding.tvResult.text = "${expr}\nx1 = x2 = ${nullCheck(-1 * b / (2 * a))}"
         }
         else {
             binding.tvResult.text = "${expr}\n" +
-                    "x1 = ${(-1 * b + sqrt(d)) / (2 * a)}\n" +
-                    "x2 = ${(-1 * b - sqrt(d)) / (2 * a)}"
+                    "x1 = ${nullCheck((-1 * b + sqrt(d)) / (2 * a))}\n" +
+                    "x2 = ${nullCheck((-1 * b - sqrt(d)) / (2 * a))}"
         }
     }
 }
